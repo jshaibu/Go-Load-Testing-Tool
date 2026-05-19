@@ -6,7 +6,11 @@ A generic load testing tool for simulating high-concurrency API usage and measur
 2. Download and install Go (example for Linux):
 
 
-### Download Go (replace with the latest version if needed)wget https://go.dev/dl/go1.26.3.linux-amd64.tar.gz# Extract to /usr/localsudo tar -C /usr/local -xzf ~/Downloads/go1.26.3.linux-amd64.tar.gz# Add Go to your PATH (add these lines to ~/.bashrc or ~/.profile)export PATH=$PATH:/usr/local/go/bin# Reload your shell configurationsource ~/.bashrc# Verify installationgo version
+### Download Go (replace with the latest version if needed)
+#### wget https://go.dev/dl/go1.26.3.linux-amd64.tar.gz
+#### Extract to /usr/localsudo tar -C /usr/local -xzf ~/Downloads/go1.26.3.linux-amd64.tar.gz
+#### Add Go to your PATH (add these lines to ~/.bashrc or ~/.profile)export PATH=$PATH:/usr/local/go/bin
+#### Reload your shell configurationsource ~/.bashrc# Verify installationgo version
 
 ### Download Go (replace with the latest version if needed)
 wget https://go.dev/dl/go1.26.3.linux-amd64.tar.gz
