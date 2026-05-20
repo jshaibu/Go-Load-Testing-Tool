@@ -13,13 +13,16 @@ import (
 //
 
 const (
-	BaseURL      = "http://localhost:5115"
-	LoginURL     = BaseURL + "/api/Auth/login"
-	ProductsURL  = BaseURL + "/api/Products?page=1&pageSize=200&includeInactive=false"
-	OrdersURL    = BaseURL + "/api/Orders"
+	BaseURL     = "http://localhost:5115"
+	LoginURL    = BaseURL + "/api/Auth/login"
+	ProductsURL = BaseURL + "/api/Products?page=1&pageSize=200&includeInactive=false"
+	OrdersURL   = BaseURL + "/api/Orders"
 
 	Email    = "admin@pos.local"
 	Password = "Admin@1234!"
+
+	jobsCount  = 100
+	providerId = "a18639a0-69b8-4540-9ca5-895ffac68df3"
 )
 
 //
@@ -84,7 +87,7 @@ func main() {
 	client := &http.Client{}
 	metrics := NewMetrics()
 
-	jobs := make(chan int, 1000)
+	jobs := make(chan int, jobsCount)
 
 	go Dashboard(metrics)
 
@@ -95,11 +98,11 @@ func main() {
 		wg.Add(1)
 		go func(id int) {
 			defer wg.Done()
-			Worker(id, client, token, products, metrics, jobs, OrdersURL)
+			Worker(id, client, token, products, metrics, jobs, OrdersURL, providerId)
 		}(i)
 	}
 
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < jobsCount; i++ {
 		jobs <- i
 	}
 

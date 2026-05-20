@@ -41,6 +41,13 @@ go build -o load-test
 3. Configurable API endpoints and job counts
 4. Thread-safe metrics collection
 
+Why use this Go simulator? because it reveals:
+1. contention patterns
+2. lock escalation
+3. deadlocks
+4. retry storms
+5. timeout sensitivity
+6. racing conditions
 
 ### Usage & Configuration
 1. Changing API URLs and Credentials

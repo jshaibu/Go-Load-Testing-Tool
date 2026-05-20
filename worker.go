@@ -3,11 +3,11 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
+	"io"
 	"math/rand"
 	"net/http"
 	"time"
-	"io"
-	"fmt"
 )
 
 func Worker(
@@ -18,6 +18,7 @@ func Worker(
 	metrics *Metrics,
 	jobs <-chan int,
 	ordersURL string,
+	providerId string,
 ) {
 
 	for range jobs {
@@ -32,7 +33,8 @@ func Worker(
 
 		for i := 0; i < size; i++ {
 
-			p := products[rand.Intn(len(products))]
+			index := (id + i + rand.Intn(5)) % len(products)
+			p := products[index]
 
 			if used[p.Id] {
 				i--
@@ -54,12 +56,12 @@ func Worker(
 			PaymentMethod:   2,
 			DiscountPercent: 0,
 
-			ProviderId:      "8236c425-19b5-4fff-b383-8f0f5be83f5f",
-			CurrencySymbol:  "MK",
+			ProviderId:     providerId,
+			CurrencySymbol: "MK",
 
-			AmountTendered:  total + float64(rand.Intn(100)), // safer margin
+			AmountTendered: total + float64(rand.Intn(100)), // safer margin
 
-			Items:           items,
+			Items: items,
 		}
 
 		b, _ := json.Marshal(reqBody)
